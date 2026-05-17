@@ -14,7 +14,7 @@ export default function AccountSwitcher({ accounts, activeAccountId }: AccountSw
     <select id="account-selector" name="account-selector"
       value={activeAccountId}
       onChange={e => setActiveAccount(e.target.value)}
-      className="w-full p-2 border rounded"
+      className="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg p-2.5 text-sm font-medium text-slate-800 dark:text-slate-200 shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 cursor-pointer transition-all"
     >
       {accounts.map(acc => (
         <option key={acc.id} value={acc.id}>

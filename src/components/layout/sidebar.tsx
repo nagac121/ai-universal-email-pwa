@@ -9,8 +9,8 @@ interface SidebarProps {
 
 export default function Sidebar({ accounts, activeAccountId }: SidebarProps) {
   return (
-    <aside className="w-64 border-r bg-white p-4 overflow-y-auto">
-      <h2 className="text-xl font-semibold mb-4">Accounts</h2>
+    <aside className="w-64 border-r bg-gray-50 dark:bg-slate-900 p-4 overflow-y-auto" style={{ borderColor: 'var(--tw-ring-color, #e5e7eb)' }}>
+      <h2 className="text-xs font-semibold tracking-wider text-slate-500 dark:text-slate-400 uppercase mb-2">Accounts</h2>
       <AccountSwitcher accounts={accounts} activeAccountId={activeAccountId} />
       <nav className="mt-6 space-y-2">
         <a href="/inbox" className="block text-gray-700 hover:text-blue-600">Inbox</a>
