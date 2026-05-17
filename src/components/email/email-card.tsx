@@ -7,6 +7,8 @@ interface EmailCardProps {
   email: EmailMessage;
 }
 
+import { useAIStore } from '../../lib/store/ai-store';
+
 export default function EmailCard({ email }: EmailCardProps) {
   const markAsRead = useEmailStore(state => state.markAsRead);
 
@@ -15,6 +17,23 @@ export default function EmailCard({ email }: EmailCardProps) {
       markAsRead(email.id);
     }
   };
+
+  const priorities = useAIStore(state => state.priorities);
+  const summaries = useAIStore(state => state.summaries);
+
+  const priority = priorities[email.id];
+  const summary = summaries[email.threadId];
+
+  // Map priorityScore to label
+  const getPriorityLabel = (score?: number) => {
+    if (score === undefined) return null;
+    if (score >= 90) return { text: 'Urgent', color: 'bg-red-500' };
+    if (score >= 70) return { text: 'High', color: 'bg-orange-500' };
+    if (score >= 50) return { text: 'Medium', color: 'bg-emerald-500' };
+    return { text: 'Low', color: 'bg-indigo-500' };
+  };
+
+  const priorityLabel = getPriorityLabel(priority?.priorityScore);
 
   return (
     <Link href={`/email/${email.id}`} onClick={handleClick} className="block p-3 hover:bg-gray-100">
@@ -26,6 +45,12 @@ export default function EmailCard({ email }: EmailCardProps) {
           <p className="text-sm text-gray-600 truncate">{email.subject}</p>
           <p className="text-xs text-gray-500 truncate">
             {email.body.snippet || email.body.text?.slice(0, 50)}
+                {priorityLabel && (
+                  <span className={`mt-1 inline-block px-2 py-0.5 text-xs font-medium text-white rounded ${priorityLabel.color}`}>${priorityLabel.text}</span>
+                )}
+                {summary && (
+                  <p className="text-xs text-gray-500 mt-1 line-clamp-2">{summary.summary}</p>
+                )}
           </p>
         </div>
         <div className="flex flex-col items-end">
