@@ -6,14 +6,18 @@ interface EmailListProps {
   emails: EmailMessage[];
 }
 
+import { useEmailStore } from '../../lib/store/email-store';
+
 export default function EmailList({ emails }: EmailListProps) {
-  if (!emails.length) {
+  const activeAccountId = useEmailStore(state => state.activeAccountId);
+  const filteredEmails = emails.filter(email => email.accountId === activeAccountId);
+  if (!filteredEmails.length) {
     return <p className="text-gray-500">No emails to display.</p>;
   }
 
   return (
     <ul className="divide-y">
-      {emails.map(email => (
+      {filteredEmails.map(email => (
         <li key={email.id}>
           <EmailCard email={email} />
         </li>
