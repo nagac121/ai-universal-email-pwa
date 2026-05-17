@@ -11,7 +11,7 @@ export default function AccountSwitcher({ accounts, activeAccountId }: AccountSw
   const setActiveAccount = useEmailStore(state => state.setActiveAccount);
 
   return (
-    <select
+    <select id="account-selector" name="account-selector"
       value={activeAccountId}
       onChange={e => setActiveAccount(e.target.value)}
       className="w-full p-2 border rounded"
