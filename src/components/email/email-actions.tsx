@@ -4,11 +4,9 @@ import { useEmailStore } from '../../lib/store/email-store';
 import { Trash2, Archive, Reply, Forward } from 'lucide-react';
 
 export default function EmailActions({ email }: { email: EmailMessage }) {
-  const { archiveEmail, deleteEmail, sendEmail } = useEmailStore(state => ({
-    archiveEmail: state.archiveEmail,
-    deleteEmail: state.deleteEmail,
-    sendEmail: state.sendEmail,
-  }));
+  const archiveEmail = useEmailStore(state => state.archiveEmail);
+  const deleteEmail = useEmailStore(state => state.deleteEmail);
+  const sendEmail = useEmailStore(state => state.sendEmail);
 
   const handleArchive = async () => {
     await archiveEmail(email.id);
