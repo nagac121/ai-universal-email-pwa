@@ -7,11 +7,9 @@ import EmailDetail from '../../../components/email/email-detail';
 
 export default function EmailDetailPage() {
   const { id } = useParams() as { id: string };
-  const { emails, loading, error } = useEmailStore(state => ({
-    emails: state.emails,
-    loading: state.loading,
-    error: state.error,
-  }));
+  const emails = useEmailStore(state => state.emails);
+  const loading = useEmailStore(state => state.loading);
+  const error = useEmailStore(state => state.error);
 
   const email = emails.find(e => e.id === id);
 

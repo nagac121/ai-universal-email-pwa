@@ -4,15 +4,13 @@ import Sidebar from './sidebar';
 import BottomNav from './bottom-nav';
 
 export default function AppShell({ children }: { children: ReactNode }) {
-  const { accounts, activeAccountId, loadAccounts } = useEmailStore(state => ({
-    accounts: state.accounts,
-    activeAccountId: state.activeAccountId,
-    loadAccounts: state.loadAccounts,
-  }));
+  const accounts = useEmailStore(state => state.accounts);
+  const activeAccountId = useEmailStore(state => state.activeAccountId);
+  const loadAccounts = useEmailStore(state => state.loadAccounts);
 
   React.useEffect(() => {
     loadAccounts();
-  }, [loadAccounts]);
+  }, []);
 
   return (
     <div className="flex flex-col h-screen">

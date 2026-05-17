@@ -6,12 +6,10 @@ import EmailList from '../../components/email/email-list';
 
 export default function SearchPage() {
   const [query, setQuery] = useState('');
-  const { emails, loading, error, searchEmails } = useEmailStore(state => ({
-    emails: state.emails,
-    loading: state.loading,
-    error: state.error,
-    searchEmails: state.searchEmails,
-  }));
+  const emails = useEmailStore(state => state.emails);
+  const loading = useEmailStore(state => state.loading);
+  const error = useEmailStore(state => state.error);
+  const searchEmails = useEmailStore(state => state.searchEmails);
 
   const handleSearch = async (e: React.FormEvent) => {
     e.preventDefault();

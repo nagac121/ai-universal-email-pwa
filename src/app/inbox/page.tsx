@@ -5,16 +5,14 @@ import EmailList from '../../components/email/email-list';
 import { useEmailStore } from '../../lib/store/email-store';
 
 export default function InboxPage() {
-  const { emails, loading, error, fetchEmails } = useEmailStore(state => ({
-    emails: state.emails,
-    loading: state.loading,
-    error: state.error,
-    fetchEmails: state.fetchEmails,
-  }));
+  const emails = useEmailStore(state => state.emails);
+  const loading = useEmailStore(state => state.loading);
+  const error = useEmailStore(state => state.error);
+  const fetchEmails = useEmailStore(state => state.fetchEmails);
 
   useEffect(() => {
     fetchEmails();
-  }, [fetchEmails]);
+  }, []);
 
   return (
     <AppShell>
