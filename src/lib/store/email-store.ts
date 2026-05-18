@@ -67,6 +67,8 @@ export const useEmailStore = create<EmailState>((set, get) => {
             const result = await emailService.fetchEmails(account.id, limit, page);
             allEmails.push(...result.items);
           }
+          // Sort all emails globally by date (newest first)
+          allEmails.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
           set({ emails: allEmails, total: allEmails.length, loading: false });
         } else {
           const result: PaginatedResult<EmailMessage> =
