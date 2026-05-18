@@ -59,9 +59,20 @@ export const useEmailStore = create<EmailState>((set, get) => {
     fetchEmails: async (limit = 20, page = 1) => {
       set({ loading: true, error: undefined });
       try {
-        const result: PaginatedResult<EmailMessage> =
-          await emailService.fetchEmails(get().activeAccountId, limit, page);
-        set({ emails: result.items, total: result.total, loading: false });
+        const activeAccountId = get().activeAccountId;
+        if (activeAccountId === 'unified') {
+          // Fetch emails from all accounts
+          const allEmails: EmailMessage[] = [];
+          for (const account of get().accounts) {
+            const result = await emailService.fetchEmails(account.id, limit, page);
+            allEmails.push(...result.items);
+          }
+          set({ emails: allEmails, total: allEmails.length, loading: false });
+        } else {
+          const result: PaginatedResult<EmailMessage> =
+            await emailService.fetchEmails(activeAccountId, limit, page);
+          set({ emails: result.items, total: result.total, loading: false });
+        }
       } catch (e: unknown) {
         set({
           error: e instanceof Error ? e.message : String(e),

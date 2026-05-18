@@ -10,15 +10,15 @@ import { useEmailStore } from '../../lib/store/email-store';
 
 export default function EmailList({ emails }: EmailListProps) {
   const activeAccountId = useEmailStore(state => state.activeAccountId);
-  const filteredEmails = emails.filter(email => email.accountId === activeAccountId);
+  const filteredEmails = activeAccountId === 'unified' ? emails : emails.filter(email => email.accountId === activeAccountId);
   if (!filteredEmails.length) {
     return <p className="text-gray-500">No emails to display.</p>;
   }
 
   return (
     <ul className="divide-y">
-      {filteredEmails.map(email => (
-        <li key={email.id}>
+      {filteredEmails.map((email, index) => (
+        <li key={`${email.accountId || 'acc'}-${email.id || 'mail'}-${index}`}>
           <EmailCard email={email} />
         </li>
       ))}
