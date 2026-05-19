@@ -24,24 +24,27 @@ export default function ComposeForm() {
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 max-w-lg">
       <div>
-        <label className="block text-sm font-medium mb-1">To</label>
+        <label htmlFor="to-field" className="block text-sm font-medium mb-1">To</label>
         <input
+          id="to-field"
           type="email"
           {...register('to', { required: true })}
           className="w-full border rounded px-2 py-1"
         />
       </div>
       <div>
-        <label className="block text-sm font-medium mb-1">Subject</label>
+        <label htmlFor="subject-field" className="block text-sm font-medium mb-1">Subject</label>
         <input
+          id="subject-field"
           type="text"
           {...register('subject', { required: true })}
           className="w-full border rounded px-2 py-1"
         />
       </div>
       <div>
-        <label className="block text-sm font-medium mb-1">Body</label>
+        <label htmlFor="body-field" className="block text-sm font-medium mb-1">Body</label>
         <textarea
+          id="body-field"
           {...register('body', { required: true })}
           rows={8}
           className="w-full border rounded px-2 py-1"

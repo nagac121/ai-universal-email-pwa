@@ -45,7 +45,7 @@ export default function EmailDetail({ email }: EmailDetailProps) {
               <p className="font-medium mb-1">AI Suggested Replies:</p>
               <ul className="list-disc list-inside space-y-1">
                 {smartReply.suggestions.map((s, i) => (
-                  <li key={i}>{s}</li>
+                  <li key={`summary-${i}`}>{s}</li>
                 ))}
               </ul>
             </div>

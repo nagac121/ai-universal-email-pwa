@@ -1,12 +1,15 @@
 import type { NextConfig } from "next";
+import withPWA from "next-pwa";
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
-    // PWA settings
   output: 'standalone',
-  // Using @serwist/next – see https://github.com/google/serwist/tree/main/packages/next
-  // We'll add a simple service worker later in public/sw.js
-  // Add any additional next.js config here
+  // Add any additional Next.js config here
 };
 
-export default nextConfig;
+export default withPWA({
+  dest: 'public',
+  register: true,
+  skipWaiting: true,
+  disable: process.env.NODE_ENV === 'development',
+})(nextConfig);

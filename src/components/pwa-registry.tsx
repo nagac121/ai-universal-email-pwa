@@ -4,7 +4,11 @@ import { useEffect } from "react";
 
 export default function PwaRegistry() {
   useEffect(() => {
-    if (typeof window !== "undefined" && "serviceWorker" in navigator) {
+    if (
+      typeof window !== "undefined" &&
+      "serviceWorker" in navigator &&
+      process.env.NODE_ENV !== "development"
+    ) {
       navigator.serviceWorker
         .register("/sw.js")
         .catch((err) => console.error("SW registration failed", err));
